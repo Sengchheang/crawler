@@ -41,7 +41,12 @@ class tx_crawler_scheduler_imAdditionalFieldProvider implements tx_scheduler_Add
 	 */
 	public function getAdditionalFields(array &$taskInfo, $task, tx_scheduler_Module $schedulerModule) {
 		$additionalFields = array();
-                 
+
+		// if new task, $task is NULL always
+		if ($schedulerModule->CMD == 'add') {
+			$task = new \TYPO3\CMS\Extbase\Scheduler\Task();
+		}
+
 		if (empty($taskInfo['configuration'])) {
 			if ($schedulerModule->CMD == 'add') {
 				$taskInfo['configuration'] = array();
